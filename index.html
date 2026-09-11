@@ -2,8 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0f766e" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#eef8f2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>ملزمة | حلول الطباعة الذكية</title>
   <meta name="description" content="ارفع ملفك، اختر خيارات الطباعة، وأرسل طلبك إلى المكتبة بسهولة." />
   <link rel="icon" href="logo.jpeg" />
@@ -14,177 +16,96 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="#top" aria-label="ملزمة">
-        <img src="logo.jpeg" alt="شعار ملزمة" />
-      </a>
-      <nav class="nav-links" aria-label="التنقل الرئيسي">
-        <a href="#why">لماذا ملزمة؟</a>
-        <a href="#services">الخدمات</a>
-        <a href="#how">طريقة الطلب</a>
-      </nav>
-      <a class="btn btn-primary btn-small" href="#order">ابدأ طلبك</a>
+  <header class="app-header">
+    <div class="app-container header-inner">
+      <button class="header-action" type="button" data-go="more" aria-label="المزيد"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 3.7 2.2c-.8.4-1.3 1-1.3 1.8M12 17h.01"/></svg></button>
+      <button class="brand-lockup" type="button" data-go="home" aria-label="العودة إلى الرئيسية"><img src="logo.jpeg" alt="شعار ملزمة" /><span><strong>ملزمة</strong><small>حلول الطباعة الذكية</small></span></button>
+      <span class="service-status"><i></i> استقبال الطلبات متاح</span>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-stage">
-          <img class="hero-image" src="hero-visual-v2.webp" alt="هاتف يرسل ملفًا إلى طابعة مع أوراق وملزمة مجلدة" fetchpriority="high" />
-          <div class="hero-shade" aria-hidden="true"></div>
-          <div class="hero-copy">
-            <span class="hero-kicker"><i aria-hidden="true"></i> الطباعة من جوالك</span>
-            <h1 id="hero-title">اطبع ملفك.<br><span>قبل أن تصل.</span></h1>
-            <p>ارفع الملف، اختر ما يناسبك، وأرسل الطلب.</p>
-            <a class="btn hero-cta" href="#order">
-              <span>ابدأ طلب الطباعة</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" /></svg>
-            </a>
+  <main class="app-main app-container">
+    <section class="app-screen is-active" id="screen-home" data-screen-panel="home" aria-labelledby="home-title">
+      <div class="home-heading"><div><span>أهلاً بك 👋</span><h1 id="home-title">اطبعها من جوالك</h1></div><button class="avatar-button" type="button" data-go="more" aria-label="معلومات الخدمة">م</button></div>
+      <button class="pickup-card" type="button" data-go="services"><span class="pickup-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><small>طريقة الاستلام</small><strong>استلام من المكتبة</strong></span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+
+      <div class="dashboard-layout">
+        <article class="quick-order-card">
+          <img src="hero-visual-v2.webp" alt="هاتف يرسل ملفًا إلى طابعة" fetchpriority="high" />
+          <div class="quick-order-shade" aria-hidden="true"></div>
+          <div class="quick-order-copy"><span class="mini-label">طلب جديد</span><h2>ملفك جاهز<br />للطباعة؟</h2><p>ارفعه وحدد الخيارات، والباقي علينا.</p><button class="btn btn-dark" type="button" data-go="order"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>ابدأ الطلب</button></div>
+        </article>
+
+        <div class="dashboard-side">
+          <div class="metric-grid" aria-label="ملخص الاستخدام">
+            <button class="metric-card metric-blue" type="button" data-go="order"><span class="metric-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5M10 12h5M10 16h5"/></svg></span><span><small>الملفات</small><strong id="homeFileCount">٠</strong></span></button>
+            <button class="metric-card metric-orange" type="button" data-go="orders"><span class="metric-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h5"/></svg></span><span><small>الطلبات</small><strong id="homeOrderCount">٠</strong></span></button>
           </div>
+          <section class="recent-card" aria-labelledby="recent-title">
+            <div class="card-heading"><h2 id="recent-title">طلباتك الأخيرة</h2><button type="button" data-go="orders">عرض الكل</button></div>
+            <div class="empty-state compact" id="homeOrdersEmpty"><span class="empty-illustration"><svg viewBox="0 0 120 120" aria-hidden="true"><path class="paper-back" d="M34 26h58v72H34z"/><path class="paper" d="M25 18h61v69L72 102H25z"/><path class="fold" d="M72 87v15l14-15z"/><path d="M40 42h31M40 53h25M40 64h21"/><circle cx="82" cy="77" r="14"/><path class="check" d="m76 77 4 4 8-9"/></svg></span><strong>جاهز لأول طلب؟</strong><p>سيظهر آخر طلب لك هنا.</p><button class="text-action" type="button" data-go="order">إضافة ملف</button></div>
+            <div class="recent-orders" id="homeRecentOrders" hidden></div>
+          </section>
         </div>
       </div>
     </section>
 
-    <section id="why" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">تجربة صُممت لراحتك</span>
-          <h2>لماذا ملزمة؟</h2>
-          <p>كل ما تحتاجه لإرسال طلب طباعة واضح ومتكامل، دون رسائل متفرقة أو انتظار طويل.</p>
-        </div>
-        <div class="benefit-grid">
-          <article class="benefit-card"><span class="benefit-icon">⚡</span><h3>أسرع في الطلب</h3><p>ارفع الملف وحدد كل الخيارات من شاشة واحدة.</p></article>
-          <article class="benefit-card featured"><span class="benefit-icon">✓</span><h3>أوضح في التنفيذ</h3><p>تفاصيل اللون والمقاس والتجليد تصل للمكتبة مرتبة.</p></article>
-          <article class="benefit-card"><span class="benefit-icon">◉</span><h3>أسهل في المتابعة</h3><p>تحصل على رقم طلب واضح للاحتفاظ به والمتابعة.</p></article>
-        </div>
+    <section class="app-screen" id="screen-order" data-screen-panel="order" aria-labelledby="order-title" hidden>
+      <div class="screen-heading"><div><span>طلب جديد</span><h1 id="order-title">جهّز طباعتك</h1><p>أربع خطوات واضحة، ثم يصلك رقم الطلب.</p></div><button class="back-button" type="button" data-go="home" aria-label="العودة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div>
+      <div class="step-track" aria-label="مراحل الطلب"><span class="active"><b>١</b> الملف</span><i></i><span><b>٢</b> الطباعة</span><i></i><span><b>٣</b> التجهيز</span><i></i><span><b>٤</b> الاستلام</span></div>
+      <div class="order-layout">
+        <form id="orderForm" class="order-form">
+          <section class="form-card">
+            <div class="form-card-title"><span class="num">١</span><div><h2>أضف ملفاتك</h2><p>حتى ١٠ ملفات، وبحد أقصى ٥٠ MB للملف.</p></div></div>
+            <label class="upload-zone" id="uploadZone"><input id="files" name="files" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png" /><span class="upload-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></span><strong>اختر الملفات من جهازك</strong><span>PDF • Word • PowerPoint • صور</span></label>
+            <div id="fileList" class="file-list"></div>
+          </section>
+          <section class="form-card">
+            <div class="form-card-title"><span class="num">٢</span><div><h2>خيارات الطباعة</h2><p>حدد المواصفات المناسبة لملفك.</p></div></div>
+            <div class="form-grid"><label class="field"><span>لون الطباعة</span><select name="color" required><option value="bw">أسود وأبيض</option><option value="color">ملون</option></select></label><label class="field"><span>مقاس الورق</span><select name="size" required><option value="A4">A4</option><option value="A3">A3</option></select></label><label class="field"><span>طريقة الطباعة</span><select name="sides" required><option value="single">وجه واحد</option><option value="double">وجهين</option></select></label><label class="field"><span>عدد النسخ</span><input name="copies" type="number" min="1" max="100" value="1" required /></label><label class="field"><span>الصفحات</span><select name="pagesMode" id="pagesMode"><option value="all">كامل الملف</option><option value="custom">صفحات محددة</option></select></label><label class="field" id="pageRangeField" hidden><span>حدد الصفحات</span><input name="pageRange" placeholder="مثال: 1-5, 8" /></label></div>
+          </section>
+          <section class="form-card">
+            <div class="form-card-title"><span class="num">٣</span><div><h2>التجليد والتشطيب</h2><p>اختياري.</p></div></div>
+            <div class="choice-grid"><label class="choice"><input type="radio" name="binding" value="none" checked><span>بدون تجليد</span></label><label class="choice"><input type="radio" name="binding" value="spiral"><span>سلك</span></label><label class="choice"><input type="radio" name="binding" value="staple"><span>تدبيس ولزق</span></label><label class="choice"><input type="radio" name="binding" value="lamination"><span>تغليف حراري</span></label></div>
+            <label class="field full"><span>ملاحظات للمكتبة</span><textarea name="notes" rows="4" placeholder="مثال: الغلاف ملون وبقية الصفحات أسود..."></textarea></label>
+          </section>
+          <section class="form-card">
+            <div class="form-card-title"><span class="num">٤</span><div><h2>بيانات الاستلام</h2><p>لاستخدامها في تأكيد الطلب.</p></div></div>
+            <div class="form-grid"><label class="field"><span>الاسم</span><input name="customerName" required placeholder="اسم العميل" /></label><label class="field"><span>رقم الجوال</span><input name="phone" required inputmode="tel" placeholder="05xxxxxxxx" /></label><label class="field full"><span>طريقة الاستلام</span><select name="delivery"><option value="pickup">استلام من المكتبة</option></select></label></div>
+          </section>
+          <button type="submit" class="btn btn-primary submit-btn">تأكيد وإرسال الطلب</button><p id="submitStatus" class="submit-status" aria-live="polite"></p><p class="form-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.9 8.7 7 10 4.1-1.3 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>ملفاتك تُرفع إلى مساحة خاصة وغير متاحة للعامة.</p>
+        </form>
+        <aside class="summary-card"><span class="summary-label">ملخص الطلب</span><h2>اختياراتك</h2><div id="summaryFiles" class="summary-line"><span>الملفات</span><strong>لم ترفع ملفات بعد</strong></div><div class="summary-line"><span>الطباعة</span><strong id="summaryPrint">أسود وأبيض • A4</strong></div><div class="summary-line"><span>النسخ</span><strong id="summaryCopies">١</strong></div><div class="summary-line"><span>التجليد</span><strong id="summaryBinding">بدون تجليد</strong></div><div class="summary-total"><span>السعر</span><strong>يُحدد حسب تسعير المكتبة</strong></div></aside>
       </div>
     </section>
 
-    <section id="services" class="section section-ink">
-      <div class="container">
-        <div class="section-heading light">
-          <span class="eyebrow">خدمات متكاملة</span>
-          <h2>اختر التجهيز المناسب لملفك</h2>
-        </div>
-        <div class="services-grid">
-          <article><span class="service-num">٠١</span><div><h3>طباعة عالية الجودة</h3><p>أسود وأبيض أو ملون، بمقاسات وخيارات طباعة متعددة.</p></div></article>
-          <article><span class="service-num">٠٢</span><div><h3>تجليد احترافي</h3><p>سلك أو تدبيس ولزق لتخرج ملفاتك بصورة مرتبة.</p></div></article>
-          <article><span class="service-num">٠٣</span><div><h3>تغليف يحمي أوراقك</h3><p>تغليف حراري للأوراق والوثائق التي تحتاج حماية إضافية.</p></div></article>
-        </div>
-      </div>
+    <section class="app-screen" id="screen-orders" data-screen-panel="orders" aria-labelledby="orders-title" hidden>
+      <div class="screen-heading simple"><div><span>المتابعة</span><h1 id="orders-title">طلباتي</h1><p>طلبات هذا الجهاز تظهر هنا.</p></div></div>
+      <div class="content-card orders-card"><div class="empty-state" id="ordersEmpty"><span class="empty-illustration large"><svg viewBox="0 0 120 120" aria-hidden="true"><path class="paper-back" d="M34 26h58v72H34z"/><path class="paper" d="M25 18h61v69L72 102H25z"/><path class="fold" d="M72 87v15l14-15z"/><path d="M40 42h31M40 53h25M40 64h21"/><circle cx="82" cy="77" r="14"/><path class="check" d="m76 77 4 4 8-9"/></svg></span><strong>لا توجد طلبات بعد</strong><p>ابدأ أول طلب، وسيظهر رقمه هنا للرجوع إليه.</p><button class="btn btn-primary" type="button" data-go="order">إنشاء أول طلب</button></div><div class="orders-list" id="ordersList" hidden></div></div>
     </section>
 
-    <section id="how" class="section">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">٤ خطوات فقط</span>
-          <h2>كيف تطلب من ملزمة؟</h2>
-        </div>
-        <div class="steps">
-          <article class="step"><span>١</span><h3>ارفع الملف</h3><p>اختر الملف أو عدة ملفات من جهازك.</p></article>
-          <article class="step"><span>٢</span><h3>حدد الطباعة</h3><p>اللون، المقاس، الوجهين، وعدد النسخ.</p></article>
-          <article class="step"><span>٣</span><h3>اختر التجهيز</h3><p>سلك، تدبيس ولزق، أو تغليف حراري.</p></article>
-          <article class="step"><span>٤</span><h3>أرسل الطلب</h3><p>تحصل على رقم طلب للمتابعة والاستلام.</p></article>
-        </div>
-      </div>
+    <section class="app-screen" id="screen-services" data-screen-panel="services" aria-labelledby="services-title" hidden>
+      <div class="screen-heading simple"><div><span>خياراتك</span><h1 id="services-title">خدمات الطباعة</h1><p>كل ما تحتاجه لتجهيز ملفك.</p></div></div>
+      <div class="service-grid"><article class="service-card service-green"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg></span><div><h2>طباعة</h2><p>أسود وأبيض أو ملون، بمقاسي A4 وA3.</p></div></article><article class="service-card service-blue"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v18H7zM4 6h3M4 10h3M4 14h3M4 18h3"/></svg></span><div><h2>تجليد</h2><p>سلك أو تدبيس ولزق بترتيب احترافي.</p></div></article><article class="service-card service-orange"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l3 4v12H4V8z"/><path d="M8 4v5h8V4M8 14h8"/></svg></span><div><h2>تغليف</h2><p>تغليف حراري لحماية الأوراق المهمة.</p></div></article></div>
+      <button class="btn btn-primary wide-action" type="button" data-go="order">ابدأ طلب الطباعة</button>
     </section>
 
-    <section id="order" class="section section-soft">
-      <div class="container order-layout">
-        <div>
-          <div class="section-heading align-start">
-            <span class="eyebrow">ابدأ الآن</span>
-            <h2>طلب طباعة جديد</h2>
-            <p>ارفع ملفاتك الآن، وسيتم حفظ الطلب والملفات فعليًا بشكل آمن في نظام ملزمة.</p>
-          </div>
-
-          <form id="orderForm" class="order-form">
-            <div class="form-card">
-              <div class="form-card-title"><span class="num">١</span><div><h3>ارفع ملفاتك</h3><p>يمكن اختيار أكثر من ملف.</p></div></div>
-              <label class="upload-zone" id="uploadZone">
-                <input id="files" name="files" type="file" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png" />
-                <strong>اضغط لاختيار الملفات</strong>
-                <span>أو اسحبها إلى هنا</span>
-                <small>PDF • Word • PowerPoint • JPG • PNG</small>
-              </label>
-              <div id="fileList" class="file-list"></div>
-            </div>
-
-            <div class="form-card">
-              <div class="form-card-title"><span class="num">٢</span><div><h3>خيارات الطباعة</h3><p>اختر ما يناسب ملفك.</p></div></div>
-              <div class="form-grid">
-                <label class="field"><span>لون الطباعة</span><select name="color" required><option value="bw">أسود وأبيض</option><option value="color">ملون</option></select></label>
-                <label class="field"><span>مقاس الورق</span><select name="size" required><option value="A4">A4</option><option value="A3">A3</option></select></label>
-                <label class="field"><span>طريقة الطباعة</span><select name="sides" required><option value="single">وجه واحد</option><option value="double">وجهين</option></select></label>
-                <label class="field"><span>عدد النسخ</span><input name="copies" type="number" min="1" max="100" value="1" required /></label>
-                <label class="field"><span>الصفحات</span><select name="pagesMode" id="pagesMode"><option value="all">كامل الملف</option><option value="custom">صفحات محددة</option></select></label>
-                <label class="field" id="pageRangeField" hidden><span>حدد الصفحات</span><input name="pageRange" placeholder="مثال: 1-5, 8, 12-20" /></label>
-              </div>
-            </div>
-
-            <div class="form-card">
-              <div class="form-card-title"><span class="num">٣</span><div><h3>التجليد والتشطيب</h3><p>اختياري.</p></div></div>
-              <div class="choice-grid">
-                <label class="choice"><input type="radio" name="binding" value="none" checked><span>بدون تجليد</span></label>
-                <label class="choice"><input type="radio" name="binding" value="spiral"><span>سلك</span></label>
-                <label class="choice"><input type="radio" name="binding" value="staple"><span>تدبيس ولزق</span></label>
-                <label class="choice"><input type="radio" name="binding" value="lamination"><span>تغليف حراري</span></label>
-              </div>
-              <label class="field full"><span>ملاحظات للمكتبة</span><textarea name="notes" rows="4" placeholder="مثال: أريد الغلاف ملون وباقي الصفحات أسود..."></textarea></label>
-            </div>
-
-            <div class="form-card">
-              <div class="form-card-title"><span class="num">٤</span><div><h3>بيانات الاستلام</h3><p>لنستخدمها لتأكيد الطلب.</p></div></div>
-              <div class="form-grid">
-                <label class="field"><span>الاسم</span><input name="customerName" required placeholder="اسم العميل" /></label>
-                <label class="field"><span>رقم الجوال</span><input name="phone" required inputmode="tel" placeholder="05xxxxxxxx" /></label>
-                <label class="field full"><span>طريقة الاستلام</span><select name="delivery"><option value="pickup">استلام من المكتبة</option></select></label>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary submit-btn">تأكيد وإرسال الطلب</button>
-            <p id="submitStatus" class="submit-status" aria-live="polite"></p>
-            <p class="form-note">الملفات تُرفع إلى مساحة تخزين خاصة، ولا تكون متاحة للعامة.</p>
-          </form>
-        </div>
-
-        <aside class="summary-card">
-          <span class="eyebrow">ملخص الطلب</span>
-          <h3>راجع اختيارك</h3>
-          <div id="summaryFiles" class="summary-line"><span>الملفات</span><strong>لم ترفع ملفات بعد</strong></div>
-          <div class="summary-line"><span>الطباعة</span><strong id="summaryPrint">أسود وأبيض • A4</strong></div>
-          <div class="summary-line"><span>النسخ</span><strong id="summaryCopies">١</strong></div>
-          <div class="summary-line"><span>التجليد</span><strong id="summaryBinding">بدون تجليد</strong></div>
-          <div class="summary-total"><span>السعر</span><strong>يُحدد حسب تسعير المكتبة</strong></div>
-          <small>يمكن لاحقًا ربط أسعار الخدمات لتظهر التكلفة تلقائيًا هنا.</small>
-        </aside>
-      </div>
+    <section class="app-screen" id="screen-more" data-screen-panel="more" aria-labelledby="more-title" hidden>
+      <div class="screen-heading simple"><div><span>معلومات سريعة</span><h1 id="more-title">كيف تعمل ملزمة؟</h1><p>من الملف إلى الاستلام في أربع خطوات.</p></div></div>
+      <div class="how-list"><article><span>١</span><div><h2>ارفع الملف</h2><p>اختر ملفًا أو أكثر من جوالك.</p></div></article><article><span>٢</span><div><h2>حدد الطباعة</h2><p>اختر اللون والمقاس وعدد النسخ.</p></div></article><article><span>٣</span><div><h2>اختر التجهيز</h2><p>أضف التجليد أو التغليف عند الحاجة.</p></div></article><article><span>٤</span><div><h2>أرسل الطلب</h2><p>احتفظ برقم الطلب حتى الاستلام.</p></div></article></div>
+      <div class="about-card"><img src="logo.jpeg" alt="ملزمة" /><div><h2>ملزمة</h2><p>حلول طباعة ذكية، واضحة، وسريعة من جوالك.</p></div></div>
     </section>
   </main>
 
-  <div id="successModal" class="modal" hidden>
-    <div class="modal-card">
-      <div class="success-icon">✓</div>
-      <h2>تم استلام طلبك بنجاح</h2>
-      <p>رقم طلبك:</p>
-      <strong id="orderNumber" class="order-number"></strong>
-      <p>احتفظ برقم الطلب. ستتمكن المكتبة من الوصول إلى ملفاتك وتجهيزها.</p>
-      <div class="modal-actions">
-        <button id="closeModal" class="btn btn-primary" type="button">تم</button>
-      </div>
-    </div>
-  </div>
+  <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+    <button class="nav-item is-active" type="button" data-go="home" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v10h-6v-6H9v6H3z"/></svg><span>الرئيسية</span></button>
+    <button class="nav-item" type="button" data-go="services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg><span>الخدمات</span></button>
+    <button class="nav-item nav-primary" type="button" data-go="order"><span class="primary-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg></span><span>طلب جديد</span></button>
+    <button class="nav-item" type="button" data-go="orders"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h5"/></svg><span>طلباتي</span></button>
+    <button class="nav-item" type="button" data-go="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg><span>المزيد</span></button>
+  </nav>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div><strong>ملزمة</strong><span>حلول الطباعة الذكية</span></div>
-      <div><a href="#top">الرئيسية</a><a href="#how">كيف تطلب؟</a><a href="#order">ابدأ الطلب</a></div>
-      <div><span>© 2026 ملزمة</span></div>
-    </div>
-  </footer>
-
+  <div id="successModal" class="modal" hidden><div class="modal-card"><div class="success-icon">✓</div><h2>تم استلام طلبك</h2><p>رقم طلبك:</p><strong id="orderNumber" class="order-number"></strong><p>احتفظ بالرقم لمتابعة تجهيز الطلب.</p><button id="closeModal" class="btn btn-primary" type="button">عرض طلباتي</button></div></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
