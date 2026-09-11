@@ -7,7 +7,10 @@
   <title>ملزمة | حلول الطباعة الذكية</title>
   <meta name="description" content="ارفع ملفك، اختر خيارات الطباعة، وأرسل طلبك إلى المكتبة بسهولة." />
   <link rel="icon" href="logo.jpeg" />
-  <link rel="preload" as="image" href="hero-app.png" />
+  <link rel="preload" as="image" href="hero-visual-v2.webp" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -27,39 +30,20 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="app-chip"><span class="app-chip-icon">م</span><div><strong>ملزمة</strong><small>حلول الطباعة الذكية</small></div><span class="app-chip-state">متاح الآن</span></div>
-          <span class="eyebrow">الطباعة من جوالك أصبحت أسهل</span>
-          <h1 id="hero-title">ملفاتك مطبوعة، <span>قبل أن تصل.</span></h1>
-          <p>ارفع ملفاتك، حدّد خيارات الطباعة والتجليد، ثم أرسل الطلب للمكتبة خلال دقائق.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#order">ارفع ملفك وابدأ الطلب</a>
-            <a class="btn btn-ghost" href="#how">شاهد طريقة الطلب</a>
-          </div>
-          <div class="trust-row">
-            <span>رفع آمن</span>
-            <span>خيارات واضحة</span>
-            <span>رقم طلب فوري</span>
+      <div class="container">
+        <div class="hero-stage">
+          <img class="hero-image" src="hero-visual-v2.webp" alt="هاتف يرسل ملفًا إلى طابعة مع أوراق وملزمة مجلدة" fetchpriority="high" />
+          <div class="hero-shade" aria-hidden="true"></div>
+          <div class="hero-copy">
+            <span class="hero-kicker"><i aria-hidden="true"></i> الطباعة من جوالك</span>
+            <h1 id="hero-title">اطبع ملفك.<br><span>قبل أن تصل.</span></h1>
+            <p>ارفع الملف، اختر ما يناسبك، وأرسل الطلب.</p>
+            <a class="btn hero-cta" href="#order">
+              <span>ابدأ طلب الطباعة</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4" /></svg>
+            </a>
           </div>
         </div>
-        <div class="hero-visual">
-          <div class="device-frame">
-            <div class="device-bar"><span></span><span></span><span></span></div>
-            <img src="hero-app.png" alt="واجهة ملزمة لرفع الملفات وطلب الطباعة" fetchpriority="high" />
-          </div>
-          <div class="float-note note-fast"><strong>سريع</strong><span>اطلب خلال دقائق</span></div>
-          <div class="float-note note-safe"><strong>آمن</strong><span>ملفاتك محمية</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="feature-strip" aria-label="معلومات الخدمة">
-      <div class="container stats-grid">
-        <article><strong>٤</strong><span>خطوات فقط</span></article>
-        <article><strong>١٠</strong><span>ملفات في الطلب</span></article>
-        <article><strong>٥٠ MB</strong><span>حد الملف الواحد</span></article>
-        <article><strong>٢٤/٧</strong><span>استقبال الطلبات</span></article>
       </div>
     </section>
 
@@ -156,7 +140,7 @@
               <div class="form-grid">
                 <label class="field"><span>الاسم</span><input name="customerName" required placeholder="اسم العميل" /></label>
                 <label class="field"><span>رقم الجوال</span><input name="phone" required inputmode="tel" placeholder="05xxxxxxxx" /></label>
-                <label class="field full"><span>طريقة الاستلام</span><select name="delivery" required><option value="pickup">استلام من المكتبة</option><option value="delivery">توصيل (برسوم تُحدد لاحقًا)</option></select></label>
+                <label class="field full"><span>طريقة الاستلام</span><select name="delivery"><option value="pickup">استلام من المكتبة</option></select></label>
               </div>
             </div>
 
