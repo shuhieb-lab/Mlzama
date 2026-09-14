@@ -10,7 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="mlzama-v3.css" />
+  <style>
+    .brand-lockup img{width:48px;height:48px;object-fit:cover}
+    .app-shell{width:min(100%,760px);margin-inline:auto}
+  </style>
 </head>
 <body>
   <main class="app-shell">
@@ -99,6 +103,6 @@
   <div id="successModal" class="modal" hidden><div class="modal-card"><div class="success-icon">✓</div><h2>تم استلام طلبك</h2><p>رقم الطلب</p><strong id="orderNumber" class="order-number"></strong><p>سنتواصل معك عبر واتساب لتأكيد الطلب.</p><button id="closeModal" class="primary-button" type="button">حسنًا</button></div></div>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  <script src="mlzama-v3.js"></script>
 </body>
 </html>
