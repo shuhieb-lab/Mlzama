@@ -147,7 +147,7 @@ async function addFiles(files) {
   }
   isReadingFiles = false;
   submitBtn.disabled = false;
-  submitBtn.textContent = 'إرسال طلب الطباعة';
+  submitBtn.innerHTML = 'إرسال طلب الطباعة <span>←</span>';
 }
 
 function calculateEstimatedPrice(data = new FormData(form)) {
@@ -246,8 +246,10 @@ form.addEventListener('submit', async event => {
   const pageCount = getTotalPages();
   const price = calculateEstimatedPrice(data);
   const customerNotes = String(data.get('notes') || '').trim();
+  const address = String(data.get('address') || '').trim();
   const orderDetails = [
     customerNotes,
+    `عنوان التوصيل: ${address}`,
     `عدد الصفحات المحسوب تلقائيًا: ${pageCount}`,
     `السعر الظاهر للعميل: ${price.toFixed(2)} ر.س`
   ].filter(Boolean).join('\n');
@@ -310,7 +312,7 @@ form.addEventListener('submit', async event => {
   } finally {
     isSubmitting = false;
     submitBtn.disabled = false;
-    submitBtn.textContent = 'إرسال طلب الطباعة';
+    submitBtn.innerHTML = 'إرسال طلب الطباعة <span>←</span>';
   }
 });
 
