@@ -25,6 +25,10 @@ const discountRow = document.getElementById('discountRow');
 const discountCodeInput = document.getElementById('discountCode');
 const applyDiscountButton = document.getElementById('applyDiscount');
 const discountMessage = document.getElementById('discountMessage');
+const promoBanner = document.getElementById('promoBanner');
+const promoLabel = document.getElementById('promoLabel');
+const promoTitle = document.getElementById('promoTitle');
+const promoImage = document.getElementById('promoImage');
 
 let selectedFiles = [];
 let isSubmitting = false;
@@ -38,6 +42,22 @@ const bindingLabels = {
   staple: 'تدبيس ولزق',
   lamination: 'تغليف حراري'
 };
+
+function renderPromo(promo) {
+  if (!promo?.active) {
+    promoBanner.hidden = true;
+    return;
+  }
+  promoLabel.textContent = promo.label || 'عرض هذا الأسبوع';
+  promoTitle.textContent = promo.title || 'خصم على طباعة الملازم';
+  promoImage.hidden = !promo.image_url;
+  promoImage.src = promo.image_url || '';
+  const hasLink = /^https?:\/\//i.test(promo.link_url || '');
+  promoBanner.classList.toggle('is-link', hasLink);
+  promoBanner.tabIndex = hasLink ? 0 : -1;
+  promoBanner.dataset.link = hasLink ? promo.link_url : '';
+  promoBanner.hidden = false;
+}
 
 const arNum = value => String(value)
   .replace(/\./g, '٫')
@@ -166,6 +186,7 @@ async function requestQuote(showDiscountResult = false) {
     const { data: quote, error } = await supabaseClient.functions.invoke('print-quote', { body: payload });
     if (error || !quote?.ok) throw error || new Error('تعذر حساب السعر.');
     currentQuote = quote;
+    renderPromo(quote.promo);
     subtotalPrice.textContent = payload.pages ? formatMoney(quote.subtotal) : '—';
     deliveryPrice.textContent = formatMoney(quote.deliveryFee);
     discountRow.hidden = !quote.discountAmount;
@@ -221,6 +242,13 @@ applyDiscountButton.addEventListener('click', async () => {
   await requestQuote(true);
   applyDiscountButton.disabled = false;
   applyDiscountButton.textContent = 'تطبيق';
+});
+
+promoBanner.addEventListener('click', () => {
+  if (promoBanner.dataset.link) window.open(promoBanner.dataset.link, '_blank', 'noopener');
+});
+promoBanner.addEventListener('keydown', event => {
+  if ((event.key === 'Enter' || event.key === ' ') && promoBanner.dataset.link) promoBanner.click();
 });
 
 async function uploadAllFiles(uploads) {

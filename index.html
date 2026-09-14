@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="mlzama-v3.css" />
+  <link rel="stylesheet" href="mlzama-v3.css?v=5" />
   <style>
     .brand-lockup img{width:48px;height:48px;object-fit:cover}
     .app-shell{width:min(100%,760px);margin-inline:auto}
@@ -39,7 +39,8 @@
       </div>
     </header>
 
-    <section id="promoBanner" class="promo-banner" aria-label="إعلان">
+    <section id="promoBanner" class="promo-banner" aria-label="إعلان" hidden>
+      <img id="promoImage" class="promo-image" alt="" hidden />
       <div class="promo-icon">٪</div>
       <div class="promo-copy"><span id="promoLabel">عرض هذا الأسبوع</span><strong id="promoTitle">خصم على طباعة الملازم</strong></div>
       <span class="promo-arrow">←</span>
@@ -113,6 +114,6 @@
   <div id="successModal" class="modal" hidden><div class="modal-card"><div class="success-icon">✓</div><h2>تم استلام طلبك</h2><p>رقم الطلب</p><strong id="orderNumber" class="order-number"></strong><p>سنتواصل معك عبر واتساب لتأكيد الطلب.</p><button id="closeModal" class="primary-button" type="button">حسنًا</button></div></div>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="mlzama-v3.js"></script>
+  <script src="mlzama-v3.js?v=5"></script>
 </body>
 </html>
