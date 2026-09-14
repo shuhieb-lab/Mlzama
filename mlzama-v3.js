@@ -18,21 +18,20 @@ const summaryPrint = document.getElementById('summaryPrint');
 const summaryQuantity = document.getElementById('summaryQuantity');
 const summaryBinding = document.getElementById('summaryBinding');
 const estimatedPrice = document.getElementById('estimatedPrice');
+const subtotalPrice = document.getElementById('subtotalPrice');
+const deliveryPrice = document.getElementById('deliveryPrice');
+const discountPrice = document.getElementById('discountPrice');
+const discountRow = document.getElementById('discountRow');
+const discountCodeInput = document.getElementById('discountCode');
+const applyDiscountButton = document.getElementById('applyDiscount');
+const discountMessage = document.getElementById('discountMessage');
 
 let selectedFiles = [];
 let isSubmitting = false;
 let isReadingFiles = false;
-
-const printRates = {
-  bw: { A4: 0.25, A3: 0.50 },
-  color: { A4: 1.00, A3: 2.00 }
-};
-const bindingPrices = {
-  none: 0,
-  spiral: 5,
-  staple: 2,
-  lamination: 4
-};
+let currentQuote = null;
+let activeDiscountCode = '';
+let quoteTimer = null;
 const bindingLabels = {
   none: 'بدون تجليد',
   spiral: 'سلك',
@@ -151,16 +150,46 @@ async function addFiles(files) {
   submitBtn.innerHTML = 'إرسال طلب الطباعة <span>←</span>';
 }
 
-function calculateEstimatedPrice(data = new FormData(form)) {
-  const pageCount = getTotalPages();
-  if (!pageCount) return 0;
-  const copies = Math.max(1, Number(data.get('copies')) || 1);
-  const color = data.get('color') || 'bw';
-  const size = data.get('size') || 'A4';
-  const binding = data.get('binding') || 'none';
-  const printPrice = pageCount * copies * (printRates[color]?.[size] || 0);
-  const finishingPrice = copies * (bindingPrices[binding] || 0);
-  return printPrice + finishingPrice;
+const formatMoney = value => `${arNum(Number(value).toFixed(2))} ر.س`;
+
+async function requestQuote(showDiscountResult = false) {
+  const data = new FormData(form);
+  const payload = {
+    pages: getTotalPages(),
+    copies: Math.max(1, Number(data.get('copies')) || 1),
+    color: data.get('color') || 'bw',
+    size: data.get('size') || 'A4',
+    binding: data.get('binding') || 'none',
+    discountCode: activeDiscountCode
+  };
+  try {
+    const { data: quote, error } = await supabaseClient.functions.invoke('print-quote', { body: payload });
+    if (error || !quote?.ok) throw error || new Error('تعذر حساب السعر.');
+    currentQuote = quote;
+    subtotalPrice.textContent = payload.pages ? formatMoney(quote.subtotal) : '—';
+    deliveryPrice.textContent = formatMoney(quote.deliveryFee);
+    discountRow.hidden = !quote.discountAmount;
+    discountPrice.textContent = quote.discountAmount ? `− ${formatMoney(quote.discountAmount)}` : '—';
+    estimatedPrice.textContent = payload.pages ? formatMoney(quote.total) : '—';
+    if (showDiscountResult) {
+      discountMessage.textContent = quote.discountMessage || '';
+      discountMessage.className = quote.discountCode ? 'success' : 'error';
+      if (!quote.discountCode) activeDiscountCode = '';
+    }
+  } catch (error) {
+    console.error(error);
+    currentQuote = null;
+    deliveryPrice.textContent = 'تعذر التحميل';
+    if (showDiscountResult) {
+      discountMessage.textContent = 'تعذر التحقق من الكود الآن.';
+      discountMessage.className = 'error';
+    }
+  }
+}
+
+function scheduleQuote() {
+  clearTimeout(quoteTimer);
+  quoteTimer = setTimeout(() => requestQuote(false), 250);
 }
 
 function updateSummary() {
@@ -171,15 +200,28 @@ function updateSummary() {
   const pageCount = getTotalPages();
   const copies = Math.max(1, Number(data.get('copies')) || 1);
   const binding = data.get('binding') || 'none';
-  const price = calculateEstimatedPrice(data);
-
   summaryPrint.textContent = `${colorLabel} • ${size} • ${sidesLabel}`;
   summaryQuantity.textContent = pageCount
     ? `${arNum(pageCount)} صفحة • ${arNum(copies)} نسخة`
     : 'ارفع الملف لحساب الصفحات';
   summaryBinding.textContent = bindingLabels[binding] || 'بدون تجليد';
-  estimatedPrice.textContent = pageCount ? `${arNum(price.toFixed(2))} ر.س` : '—';
+  scheduleQuote();
 }
+
+applyDiscountButton.addEventListener('click', async () => {
+  activeDiscountCode = discountCodeInput.value.trim().toUpperCase();
+  discountCodeInput.value = activeDiscountCode;
+  if (!activeDiscountCode) {
+    discountMessage.textContent = 'أدخل كود الخصم أولًا.';
+    discountMessage.className = 'error';
+    return;
+  }
+  applyDiscountButton.disabled = true;
+  applyDiscountButton.textContent = 'جارٍ…';
+  await requestQuote(true);
+  applyDiscountButton.disabled = false;
+  applyDiscountButton.textContent = 'تطبيق';
+});
 
 async function uploadAllFiles(uploads) {
   for (let index = 0; index < uploads.length; index += 1) {
@@ -245,19 +287,13 @@ form.addEventListener('submit', async event => {
 
   const data = new FormData(form);
   const pageCount = getTotalPages();
-  const price = calculateEstimatedPrice(data);
   const customerNotes = String(data.get('notes') || '').trim();
   const address = String(data.get('address') || '').trim();
-  const orderDetails = [
-    customerNotes,
-    `عنوان التوصيل: ${address}`,
-    `عدد الصفحات المحسوب تلقائيًا: ${pageCount}`,
-    `السعر الظاهر للعميل: ${price.toFixed(2)} ر.س`
-  ].filter(Boolean).join('\n');
 
   const payload = {
     customerName: data.get('customerName'),
     phone: data.get('phone'),
+    address,
     delivery: 'delivery',
     color: data.get('color'),
     size: data.get('size'),
@@ -266,7 +302,9 @@ form.addEventListener('submit', async event => {
     pagesMode: 'all',
     pageRange: '',
     binding: data.get('binding'),
-    notes: orderDetails,
+    notes: customerNotes,
+    totalPages: pageCount,
+    discountCode: currentQuote?.discountCode || null,
     files: selectedFiles.map(itemData => ({
       name: itemData.file.name,
       size: itemData.file.size,
@@ -295,6 +333,10 @@ form.addEventListener('submit', async event => {
     document.body.style.overflow = 'hidden';
     form.reset();
     selectedFiles = [];
+    activeDiscountCode = '';
+    currentQuote = null;
+    discountCodeInput.value = '';
+    discountMessage.textContent = '';
     renderFiles();
     updateSummary();
     setStatus('');

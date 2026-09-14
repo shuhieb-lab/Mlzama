@@ -92,6 +92,16 @@
           <div><span>الكمية</span><strong id="summaryQuantity">—</strong></div>
           <div><span>التجليد</span><strong id="summaryBinding">بدون تجليد</strong></div>
         </div>
+        <div class="discount-box">
+          <label for="discountCode">لديك كود خصم؟</label>
+          <div><input id="discountCode" autocomplete="off" maxlength="30" placeholder="أدخل الكود" /><button id="applyDiscount" type="button">تطبيق</button></div>
+          <small id="discountMessage"></small>
+        </div>
+        <div class="price-details">
+          <div><span>قيمة الطباعة</span><strong id="subtotalPrice">—</strong></div>
+          <div><span>التوصيل</span><strong id="deliveryPrice">—</strong></div>
+          <div id="discountRow" hidden><span>الخصم</span><strong id="discountPrice">—</strong></div>
+        </div>
         <div class="total-row"><span>الإجمالي</span><strong id="estimatedPrice">—</strong></div>
         <button type="submit" class="primary-button">إرسال طلب الطباعة <span>←</span></button>
         <p id="submitStatus" class="submit-status" aria-live="polite"></p>
